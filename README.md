@@ -1,6 +1,6 @@
-[![PyPI](https://badge.fury.io/py/slackbot.svg)](https://pypi.python.org/pypi/slackbot) [![Build Status](https://secure.travis-ci.org/lins05/slackbot.svg?branch=master)](http://travis-ci.org/lins05/slackbot)
-
+# Smackbot
 A chat bot for [Slack](https://slack.com) inspired by [llimllib/limbo](https://github.com/llimllib/limbo) and [will](https://github.com/skoczen/will).
+Forked from lins05/slackbot
 
 ## Features
 
@@ -9,13 +9,12 @@ A chat bot for [Slack](https://slack.com) inspired by [llimllib/limbo](https://g
 * Messages can be handled concurrently
 * Automatically reconnect to slack when connection is lost
 * Python3 Support
-* [Full-fledged functional tests](tests/functional/test_functional.py)
+* [functional tests](tests/functional/test_functional.py)
 
 ## Installation
 
-
 ```
-pip install slackbot
+pip install smackbot
 ```
 
 ## Usage
@@ -29,13 +28,13 @@ First you need to get the slack api token for your bot. You have two options:
 
 
 ### Configure the bot
-First create a `slackbot_settings.py` and a `run.py` in your own instance of slackbot.
+First create a `smackbot_settings.py` and a `run.py` in your own instance of smackbot.
 
 ##### Configure the api token
 
-Then you need to configure the `API_TOKEN` in a python module `slackbot_settings.py`, which must be located in a python import path. This will be automatically imported by the bot.
+Then you need to configure the `API_TOKEN` in a python module `smackbot_settings.py`, which must be located in a python import path. This will be automatically imported by the bot.
 
-slackbot_settings.py:
+smackbot_settings.py:
 
 ```python
 API_TOKEN = "<your-api-token>"
@@ -46,7 +45,7 @@ Alternatively, you can use the environment variable `SLACKBOT_API_TOKEN`.
 ##### Run the bot
 
 ```python
-from slackbot.bot import Bot
+from smackbot.bot import Bot
 def main():
     bot = Bot()
     bot.run()
@@ -55,7 +54,7 @@ if __name__ == "__main__":
     main()
 ```
 ##### Configure the default answer
-Add a DEFAULT_REPLY to `slackbot_settings.py`:
+Add a DEFAULT_REPLY to `smackbot_settings.py`:
 ```python
 DEFAULT_REPLY = "Sorry but I didn't understand you"
 ```
@@ -64,7 +63,7 @@ DEFAULT_REPLY = "Sorry but I didn't understand you"
 The `message` attribute passed to [your custom plugins](#create-plugins) has an special function `message.docs_reply()` that will parse all the plugins available and return the Docs in each of them.
 
 ##### Send all tracebacks directly to a channel, private channel, or user
-Set `ERRORS_TO` in `slackbot_settings.py` to the desired recipient. It can be any channel, private channel, or user. Note that the bot must already be in the channel. If a user is specified, ensure that they have sent at least one DM to the bot first.
+Set `ERRORS_TO` in `smackbot_settings.py` to the desired recipient. It can be any channel, private channel, or user. Note that the bot must already be in the channel. If a user is specified, ensure that they have sent at least one DM to the bot first.
 
 ```python
 ERRORS_TO = 'some_channel'
@@ -73,11 +72,11 @@ ERRORS_TO = 'username'
 ```
 
 ##### Configure the plugins
-Add [your plugin modules](#create-plugins) to a `PLUGINS` list in `slackbot_settings.py`:
+Add [your plugin modules](#create-plugins) to a `PLUGINS` list in `smackbot_settings.py`:
 
 ```python
 PLUGINS = [
-    'slackbot.plugins',
+    'smackbot.plugins',
     'mybot.plugins',
 ]
 ```
@@ -87,7 +86,7 @@ Now you can talk to your bot in your slack client!
 ### [Attachment Support](https://api.slack.com/docs/attachments)
 
 ```python
-from slackbot.bot import respond_to
+from smackbot.bot import respond_to
 import re
 import json
 
@@ -108,14 +107,14 @@ def github():
 
 A chat bot is meaningless unless you can extend/customize it to fit your own use cases.
 
-To write a new plugin, simplely create a function decorated by `slackbot.bot.respond_to` or `slackbot.bot.listen_to`:
+To write a new plugin, simplely create a function decorated by `smackbot.bot.respond_to` or `smackbot.bot.listen_to`:
 
 - A function decorated with `respond_to` is called when a message matching the pattern is sent to the bot (direct message or @botname in a channel/private channel chat)
 - A function decorated with `listen_to` is called when a message matching the pattern is sent on a channel/private channel chat (not directly sent to the bot)
 
 ```python
-from slackbot.bot import respond_to
-from slackbot.bot import listen_to
+from smackbot.bot import respond_to
+from smackbot.bot import listen_to
 import re
 
 @respond_to('hi', re.IGNORECASE)
@@ -142,7 +141,7 @@ def help(message):
 
 To extract params from the message, you can use regular expression:
 ```python
-from slackbot.bot import respond_to
+from smackbot.bot import respond_to
 
 @respond_to('Give me (.*)')
 def giveme(message, something):
@@ -152,7 +151,7 @@ def giveme(message, something):
 If you would like to have a command like 'stats' and 'stats start_date end_date', you can create reg ex like so:
 
 ```python
-from slackbot.bot import respond_to
+from smackbot.bot import respond_to
 import re
 
 
@@ -162,20 +161,18 @@ def stats(message, start_date=None, end_date=None):
 ```
 
 
-And add the plugins module to `PLUGINS` list of slackbot settings, e.g. slackbot_settings.py:
+And add the plugins module to `PLUGINS` list of smackbot settings, e.g. smackbot_settings.py:
 
 ```python
 PLUGINS = [
-    'slackbot.plugins',
+    'smackbot.plugins',
     'mybot.plugins',
 ]
 ```
 
 ## The `@default_reply` decorator
 
-*added in slackbot 0.4.1*
-
-Besides specifying `DEFAULT_REPLY` in `slackbot_settings.py`, you can also decorate a function with the `@default_reply` decorator to make it the default reply handler, which is more handy.
+Besides specifying `DEFAULT_REPLY` in `smackbot_settings.py`, you can also decorate a function with the `@default_reply` decorator to make it the default reply handler, which is more handy.
 
 ```python
 @default_reply

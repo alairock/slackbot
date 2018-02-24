@@ -18,7 +18,8 @@ class PluginsManager(object):
     commands = {
         'respond_to': {},
         'listen_to': {},
-        'default_reply': {}
+        'default_reply': {},
+        'react_to': {}
     }
 
     def init_plugins(self):
@@ -62,7 +63,8 @@ class PluginsManager(object):
                 # TODO Better exception handling
                 logger.exception('Failed to import %s', module)
 
-    def get_plugins(self, category, text):
+    def get_plugins(self, category, msg):
+        text = msg.get('text', msg.get('reaction', ''))
         has_matching_plugin = False
         if text is None:
             text = ''

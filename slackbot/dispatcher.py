@@ -3,6 +3,8 @@
 from __future__ import absolute_import
 import logging
 import re
+
+import slacker
 import time
 import traceback
 from functools import wraps
@@ -48,7 +50,7 @@ class MessageDispatcher(object):
 
     def _dispatch_msg_handler(self, category, msg):
         responded = False
-        for func, args in self._plugins.get_plugins(category, msg.get('text', None)):
+        for func, args in self._plugins.get_plugins(category, msg):
             if func:
                 responded = True
                 try:
@@ -56,19 +58,22 @@ class MessageDispatcher(object):
                 except:
                     logger.exception(
                         'failed to handle message %s with plugin "%s"',
-                        msg['text'], func.__name__)
+                        msg.get('text'), func.__name__)
                     reply = u'[{}] I had a problem handling "{}"\n'.format(
-                        func.__name__, msg['text'])
+                        func.__name__, msg.get('text'))
                     tb = u'```\n{}\n```'.format(traceback.format_exc())
                     if self._errors_to:
-                        self._client.rtm_send_message(msg['channel'], reply)
+                        self._client.rtm_send_message(
+                            msg.get('channel', msg.get(
+                                'item', {}).get('channel')), reply)
                         self._client.rtm_send_message(self._errors_to,
                                                       '{}\n{}'.format(reply,
                                                                       tb))
                     else:
-                        self._client.rtm_send_message(msg['channel'],
-                                                      '{}\n{}'.format(reply,
-                                                                      tb))
+                        self._client.rtm_send_message(
+                            msg.get('channel',
+                                    msg.get('item', {}).get('channel')),
+                            '{}\n{}'.format(reply, tb))
         return responded
 
     def _on_new_message(self, msg):
@@ -149,6 +154,8 @@ class MessageDispatcher(object):
                 elif event_type in ['team_join', 'user_change']:
                     user = [event['user']]
                     self._client.parse_user_data(user)
+                elif event_type in ['reaction_added', 'reaction_removed']:
+                    self._on_new_reaction(event)
             time.sleep(1)
 
     def _default_reply(self, msg):
@@ -169,6 +176,22 @@ class MessageDispatcher(object):
         m = Message(self._client, msg)
         m.reply(default_reply)
 
+    def _on_new_reaction(self, msg):
+        botname = self._get_bot_name()
+        try:
+            msguser = self._client.users.get(msg['user'])
+            username = msguser['name']
+        except (KeyError, TypeError):
+            if 'username' in msg:
+                username = msg['username']
+            else:
+                return
+
+        if username == botname or username == u'slackbot':
+            return
+
+        self._pool.add_task(('react_to', msg))
+
 
 def unicode_compact(func):
     """
@@ -188,6 +211,10 @@ def unicode_compact(func):
 class Message(object):
     def __init__(self, slackclient, body):
         self._client = slackclient
+        body['channel'] = body.get('channel',
+                                   body.get('item', {}).get('channel'))
+        body['text'] = body.get('text', body.get('reaction', ''))
+        body['ts'] = body.get('item', {}).get('ts', body.get('ts'))
         self._body = body
         self._plugins = PluginsManager()
 
@@ -267,10 +294,15 @@ class Message(object):
         """
            React to a message using the web api
         """
-        self._client.react_to_message(
-            emojiname=emojiname,
-            channel=self._body['channel'],
-            timestamp=self._body['ts'])
+        try:
+            self._client.react_to_message(
+                emojiname=emojiname,
+                channel=self._body['channel'],
+                timestamp=self._body['ts'])
+        except slacker.Error as e:
+            if str(e) == 'already_reacted':
+                return
+            raise
 
     @property
     def channel(self):
@@ -279,6 +311,10 @@ class Message(object):
     @property
     def body(self):
         return self._body
+
+    @property
+    def user(self):
+            return self._client.get_user(self._body['user'])
 
     @property
     def thread_ts(self):
