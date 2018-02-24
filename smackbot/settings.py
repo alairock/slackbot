@@ -5,7 +5,7 @@ import os
 DEBUG = False
 
 PLUGINS = [
-    'slackbot.plugins',
+    'smackbot.plugins',
 ]
 
 ERRORS_TO = None
@@ -37,12 +37,12 @@ effect.
 DEFAULT_REPLY = None
 
 for key in os.environ:
-    if key[:9] == 'SLACKBOT_':
+    if key[:9] == 'SMACKBOT_':
         name = key[9:]
         globals()[name] = os.environ[key]
 
 try:
-    from slackbot_settings import *
+    from smackbot_settings import *
 except ImportError:
     try:
         from local_settings import *

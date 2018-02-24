@@ -64,28 +64,28 @@ USERS = {
         u'is_ultra_restricted': False, u'is_restricted': False,
         u'is_owner': True, u'tz_offset': -25200, u'id': u'U0X4QA7R7',
         u'is_primary_owner': True
-    }, u'USLACKBOT': {
+    }, u'USMACKBOT': {
         u'status': None, u'profile': {
-            u'first_name': u'slackbot', u'last_name': u'', u'fields': None,
-            u'real_name': u'slackbot',
-            u'image_24': u'https://a.slack-edge.com/0180/img/slackbot_24.png',
-            u'real_name_normalized': u'slackbot',
-            u'image_512': u'https://a.slack-edge.com/7fa9/img/slackbot_512'
+            u'first_name': u'smackbot', u'last_name': u'', u'fields': None,
+            u'real_name': u'smackbot',
+            u'image_24': u'https://a.slack-edge.com/0180/img/smackbot_24.png',
+            u'real_name_normalized': u'smackbot',
+            u'image_512': u'https://a.slack-edge.com/7fa9/img/smackbot_512'
                           u'.png',
-            u'image_32': u'https://a.slack-edge.com/2fac/plugins/slackbot'
+            u'image_32': u'https://a.slack-edge.com/2fac/plugins/smackbot'
                          u'/assets/service_32.png',
-            u'image_48': u'https://a.slack-edge.com/2fac/plugins/slackbot'
+            u'image_48': u'https://a.slack-edge.com/2fac/plugins/smackbot'
                          u'/assets/service_48.png',
             u'avatar_hash': u'sv1444671949',
-            u'image_72': u'https://a.slack-edge.com/0180/img/slackbot_72.png',
+            u'image_72': u'https://a.slack-edge.com/0180/img/smackbot_72.png',
             u'email': None,
-            u'image_192': u'https://a.slack-edge.com/66f9/img/slackbot_192.png'
-        }, u'tz': None, u'name': u'slackbot', u'presence': u'active',
+            u'image_192': u'https://a.slack-edge.com/66f9/img/smackbot_192.png'
+        }, u'tz': None, u'name': u'smackbot', u'presence': u'active',
         u'deleted': False, u'is_bot': False,
-        u'tz_label': u'Pacific Daylight Time', u'real_name': u'slackbot',
+        u'tz_label': u'Pacific Daylight Time', u'real_name': u'smackbot',
         u'color': u'757575', u'team_id': u'T0X1LOL22', u'is_admin': False,
         u'is_ultra_restricted': False, u'is_restricted': False,
-        u'is_owner': False, u'tz_offset': -25200, u'id': u'USLACKBOT',
+        u'is_owner': False, u'tz_offset': -25200, u'id': u'USMACKBOT',
         u'is_primary_owner': False
     }
 }
@@ -93,10 +93,10 @@ USERS = {
 CHANNELS = {
     u'D0X6385P1': {
         u'last_read': u'0000000000.000000', u'created': 1459497074,
-        u'unread_count': 1, u'is_open': True, u'user': u'USLACKBOT',
+        u'unread_count': 1, u'is_open': True, u'user': u'USMACKBOT',
         u'unread_count_display': 1, u'latest': {
-            u'text': u'message from slackbot',
-            u'type': u'message', u'user': u'USLACKBOT',
+            u'text': u'message from smackbot',
+            u'type': u'message', u'user': u'USMACKBOT',
             u'ts': u'1459502580.797060'
         }, u'is_im': True, u'id': u'D0X6385P1', u'has_pins': False
     }, u'C0X4HEKPA': {

@@ -1,7 +1,7 @@
 #coding: UTF-8
 
 """
-These functional tests would start a slackbot, and use the slack web api to
+These functional tests would start a smackbot, and use the slack web api to
 drive the tests against the bot.
 """
 
@@ -10,7 +10,7 @@ from os.path import join, abspath, dirname, basename
 import subprocess
 import pytest
 from tests.functional.driver import Driver
-from tests.functional.slackbot_settings import (
+from tests.functional.smackbot_settings import (
     testbot_apitoken, testbot_username,
     driver_apitoken, driver_username, test_channel, test_private_channel
 )
@@ -18,10 +18,10 @@ from tests.functional.slackbot_settings import (
 TRAVIS = 'TRAVIS' in os.environ
 
 def stop_proxy():
-    os.system('slackbot-test-ctl stopproxy')
+    os.system('smackbot-test-ctl stopproxy')
 
 def start_proxy():
-    os.system('slackbot-test-ctl startproxy')
+    os.system('smackbot-test-ctl startproxy')
 
 def _start_bot_process():
     args = [
@@ -29,10 +29,10 @@ def _start_bot_process():
         'tests/functional/run.py',
     ]
     if TRAVIS:
-        args = ['slackbot-test-ctl', 'run'] + args
+        args = ['smackbot-test-ctl', 'run'] + args
     env = dict(os.environ)
-    env['SLACKBOT_API_TOKEN'] = testbot_apitoken
-    env['SLACKBOT_TEST'] = 'true'
+    env['SMACKBOT_API_TOKEN'] = testbot_apitoken
+    env['SMACKBOT_TEST'] = 'true'
     env['PYTHONPATH'] = ':'.join(
         [join(dirname(abspath(__file__))), '../..', env.get('PYTHONPATH', '')])
     return subprocess.Popen(args, env=env)

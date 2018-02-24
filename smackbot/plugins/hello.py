@@ -1,7 +1,7 @@
 #coding: UTF-8
 import re
-from slackbot.bot import respond_to
-from slackbot.bot import listen_to
+from smackbot.bot import respond_to
+from smackbot.bot import listen_to
 
 
 @respond_to('hello$', re.IGNORECASE)

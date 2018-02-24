@@ -7,10 +7,10 @@ import re
 import time
 from glob import glob
 from six.moves import _thread
-from slackbot import settings
-from slackbot.manager import PluginsManager
-from slackbot.slackclient import SlackClient
-from slackbot.dispatcher import MessageDispatcher
+from smackbot import settings
+from smackbot.manager import PluginsManager
+from smackbot.slackclient import SlackClient
+from smackbot.dispatcher import MessageDispatcher
 
 logger = logging.getLogger(__name__)
 

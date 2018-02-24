@@ -5,8 +5,8 @@ import logging
 from glob import glob
 from six import PY2
 from importlib import import_module
-from slackbot import settings
-from slackbot.utils import to_utf8
+from smackbot import settings
+from smackbot.utils import to_utf8
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ class PluginsManager(object):
         if hasattr(settings, 'PLUGINS'):
             plugins = settings.PLUGINS
         else:
-            plugins = 'slackbot.plugins'
+            plugins = 'smackbot.plugins'
 
         for plugin in plugins:
             self._load_plugins(plugin)

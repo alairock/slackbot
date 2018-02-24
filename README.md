@@ -67,7 +67,9 @@ Set `ERRORS_TO` in `smackbot_settings.py` to the desired recipient. It can be an
 
 ```python
 ERRORS_TO = 'some_channel'
-# or...
+```
+or...
+```
 ERRORS_TO = 'username'
 ```
 

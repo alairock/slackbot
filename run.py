@@ -3,8 +3,8 @@
 import sys
 import logging
 import logging.config
-from slackbot import settings
-from slackbot.bot import Bot
+from smackbot import settings
+from smackbot.bot import Bot
 
 
 def main():
@@ -15,9 +15,11 @@ def main():
         'stream': sys.stdout,
     }
     logging.basicConfig(**kw)
-    logging.getLogger('requests.packages.urllib3.connectionpool').setLevel(logging.WARNING)
+    logging.getLogger('requests.packages.urllib3.connectionpool')\
+        .setLevel(logging.WARNING)
     bot = Bot()
     bot.run()
+
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,6 @@
 import os
 
-os.environ['SLACKBOT_TEST'] = 'true'
+os.environ['SMACKBOT_TEST'] = 'true'
 ALIASES = ",".join(["!", "$"])
 
 def load_driver_settings():
@@ -13,10 +13,10 @@ def load_driver_settings():
         'test_private_channel',
     )
 
-    _private_group_patch = 'SLACKBOT_TEST_GROUP'
+    _private_group_patch = 'SMACKBOT_TEST_GROUP'
 
     for key in KEYS:
-        envkey = 'SLACKBOT_' + key.upper()
+        envkey = 'SMACKBOT_' + key.upper()
 
         # Backwards compatibility patch for TravisCI env variables
         if 'PRIVATE_CHANNEL' in envkey and os.environ.get(_private_group_patch):
@@ -27,6 +27,6 @@ def load_driver_settings():
 load_driver_settings()
 
 try:
-    from slackbot_test_settings import * # pylint: disable=wrong-import-position
+    from smackbot_test_settings import * # pylint: disable=wrong-import-position
 except ImportError:
     pass
