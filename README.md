@@ -40,7 +40,7 @@ smackbot_settings.py:
 API_TOKEN = "<your-api-token>"
 ```
 
-Alternatively, you can use the environment variable `SLACKBOT_API_TOKEN`.
+Alternatively, you can use the environment variable `SMACKBOT_API_TOKEN`.
 
 ##### Run the bot
 
