@@ -30,6 +30,7 @@ RTM API to send messages (with send() or reply()), or if as_user is True
 (default), the used icon comes from bot settings and Icon or Emoji has no
 effect.
 '''
+API_TOKEN = os.getenv('SLACKBOT_API_TOKEN', '')
 # BOT_ICON = 'http://lorempixel.com/64/64/abstract/7/'
 # BOT_EMOJI = ':godmode:'
 
