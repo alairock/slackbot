@@ -2,6 +2,8 @@
 import re
 from smackbot.bot import respond_to
 from smackbot.bot import listen_to
+from smackbot.bot import reaction_added
+from smackbot.bot import reaction_removed
 
 
 @respond_to('hello$', re.IGNORECASE)
@@ -57,3 +59,13 @@ def hello_unicode_message(message):
 @listen_to('start a thread')
 def start_thread(message):
     message.reply('I started a thread', in_thread=True)
+
+
+@reaction_added('pizza')
+def smile(message):
+    message.reply('Start of thread', in_thread=True)
+
+
+@reaction_removed('pizza')
+def smile(message):
+    message.reply('End of thread', in_thread=True)

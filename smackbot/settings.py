@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 
 DEBUG = False
@@ -9,8 +7,6 @@ PLUGINS = [
 ]
 
 ERRORS_TO = None
-
-# API_TOKEN = '###token###'
 
 '''
 Setup a comma delimited list of aliases that the bot will respond to.
@@ -30,7 +26,6 @@ RTM API to send messages (with send() or reply()), or if as_user is True
 (default), the used icon comes from bot settings and Icon or Emoji has no
 effect.
 '''
-API_TOKEN = os.getenv('SLACKBOT_API_TOKEN', '')
 # BOT_ICON = 'http://lorempixel.com/64/64/abstract/7/'
 # BOT_EMOJI = ':godmode:'
 
@@ -49,9 +44,3 @@ except ImportError:
         from local_settings import *
     except ImportError:
         pass
-
-# convert default_reply to DEFAULT_REPLY
-try:
-    DEFAULT_REPLY = default_reply
-except NameError:
-    pass

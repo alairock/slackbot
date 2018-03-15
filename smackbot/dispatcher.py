@@ -155,7 +155,7 @@ class MessageDispatcher(object):
                     user = [event['user']]
                     self._client.parse_user_data(user)
                 elif event_type in ['reaction_added', 'reaction_removed']:
-                    self._on_new_reaction(event)
+                    self._on_new_reaction(event, event_type)
             time.sleep(1)
 
     def _default_reply(self, msg):
@@ -176,7 +176,7 @@ class MessageDispatcher(object):
         m = Message(self._client, msg)
         m.reply(default_reply)
 
-    def _on_new_reaction(self, msg):
+    def _on_new_reaction(self, msg, type):
         botname = self._get_bot_name()
         try:
             msguser = self._client.users.get(msg['user'])
@@ -190,7 +190,10 @@ class MessageDispatcher(object):
         if username == botname or username == u'smackbot':
             return
 
-        self._pool.add_task(('react_to', msg))
+        if type == 'reaction_added':
+            self._pool.add_task(('reaction_added', msg))
+        if type == 'reaction_removed':
+            self._pool.add_task(('reaction_removed', msg))
 
 
 def unicode_compact(func):

@@ -54,10 +54,20 @@ def respond_to(matchstr, flags=0):
     return wrapper
 
 
-def react_to(matchstr, flags=0):
+def reaction_added(matchstr, flags=0):
     def wrapper(func):
-        PluginsManager.commands['react_to'][re.compile(matchstr, flags)] = func
-        logger.info('registered react_to plugin "%s" to "%s"', func.__name__,
+        PluginsManager.commands['reaction_added'][re.compile(matchstr, flags)] = func
+        logger.info('registered reaction_added plugin "%s" to "%s"', func.__name__,
+                    matchstr)
+        return func
+
+    return wrapper
+
+
+def reaction_removed(matchstr, flags=0):
+    def wrapper(func):
+        PluginsManager.commands['reaction_removed'][re.compile(matchstr, flags)] = func
+        logger.info('registered reaction_removed plugin "%s" to "%s"', func.__name__,
                     matchstr)
         return func
 

@@ -19,7 +19,8 @@ class PluginsManager(object):
         'respond_to': {},
         'listen_to': {},
         'default_reply': {},
-        'react_to': {}
+        'reaction_added': {},
+        'reaction_removed': {}
     }
 
     def init_plugins(self):
