@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
-import imp
-import importlib
 import logging
 import re
 import time
-from glob import glob
 from six.moves import _thread
 from smackbot import settings
 from smackbot.manager import PluginsManager
